@@ -1,8 +1,8 @@
 locals {
-  environment = "{{my_account_type}}"
-  workload    = "{{my_new_account}}"
-  alias       = "{{my_new_account}}"
-  tags        = merge(local.common-tags, { env = "{{my_account_type}}" })
+  environment = "{{ data_object.AccountType }}"
+  workload    = "{{ data_object.AccountName }}"
+  alias       = "{{ data_object.AccountName }}"
+  tags        = merge(local.common-tags, { env = "{{ data_object.AccountType }}" })
 
 }
 
@@ -12,7 +12,7 @@ module "iam" {
   tags                    = local.tags
   allow-manual-parameters = true
   ec2-ssm-role            = true
-  cloudability-eid        = "{{my_cloudability_eid}}"
+  cloudability-eid        = "{{data_object.CloudabilityEid}}"
 }
 
 module "config" {
